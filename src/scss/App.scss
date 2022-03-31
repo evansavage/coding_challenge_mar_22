@@ -1,0 +1,30 @@
+.reload-works {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.slick-slide img {
+  margin: auto;
+}
+
+.container {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+.flickity-enabled {
+  width: 700px;
+}
+
+.flickity-viewport {
+  height: 500px;
+}
+
+.save-button, button {
+  z-index: 5;
+}
+
+.slideshow-wrapper {
+  width: 50%;
+}
