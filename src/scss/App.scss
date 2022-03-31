@@ -1,3 +1,7 @@
+body {
+  overflow: hidden;
+}
+
 .reload-works {
   position: absolute;
   top: 0;
@@ -25,6 +29,88 @@
   z-index: 5;
 }
 
-.slideshow-wrapper {
-  width: 50%;
+.overall-wrapper {
+  width: 660px;
+  position: relative;
+
+  @media(max-width: 800px) {
+    width: 500px;
+    .card-outer-wrapper, .button-row {
+      margin-left: 5%;
+      margin-right: 5%;
+      width: 90%;
+    }
+    .button-row {
+      margin-top: -47px;
+    }
+  }
+
+  @media(max-width: 500px) {
+    width: 100%;
+
+    .react-slideshow-container {
+      .default-nav {
+        bottom: 30px;
+        &:last-of-type {
+          margin-left: 0px;
+          left: calc(95% - 49px);
+        }
+        &:first-of-type {
+          margin-left: 0px;
+          left: calc(5% + 17px);
+        }
+      }
+    }
+
+    .button-row {
+      margin-top: 0px;
+    }
+  }
+}
+
+.outer-slideshow-wrapper {
+  position: relative;
+  top: 0px;
+
+  .save-button {
+    position: absolute;
+    left: 15%;
+    bottom: 5%;
+  }
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 100%;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: -7%;
+  justify-content: space-between;
+  > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .save-button {
+      margin-right: 10px;
+    }
+  }
+}
+
+.react-slideshow-container {
+  position: relative;
+  max-height: 700px;
+  .default-nav {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    // transform: translateX(25%);
+    &:last-of-type {
+      margin-left: 30px;
+    }
+    &:first-of-type {
+      margin-left: -60px;
+    }
+  }
 }
