@@ -13,7 +13,7 @@ export default function SlideShow(props) {
 
   return (<div className="outer-slideshow-wrapper">
     <div className="slideshow-wrapper">
-      <Slide ref={slideRef} easing="ease" defaultIndex={worksIter} transitionDuration={300} autoplay={false}>
+      <Slide ref={slideRef} easing="ease" defaultIndex={worksIter} transitionDuration={300} autoplay={false} onChange={props.onChange}>
         {randomWorks.map((item, index) => <ArtCard {...item} batchLength={randomWorks.length} key={item.id} index={index} savedWorks={savedWorks}/>)}
       </Slide>
     </div>

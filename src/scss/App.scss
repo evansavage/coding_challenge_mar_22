@@ -29,6 +29,15 @@ body {
   z-index: 5;
 }
 
+.button-row .save-button {
+   color: white;
+   border-color: white;
+   &.css-1rwt2y5-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+     color: grey;
+      border: 1px solid grey;
+   }
+}
+
 .overall-wrapper {
   width: 660px;
   position: relative;

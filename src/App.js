@@ -16,6 +16,7 @@ function App() {
   const [randomWorks, setRandomWorks] = useState([]);
   const [savedWorks, setSavedWorks] = useState({});
   const [worksIter, setWorksIter] = useState(0);
+  const [disableSave, setDisableSave] = useState(false);
 
   // slideRef for referencing the nested SlideShow component
   const slideRef = useRef(null);
@@ -31,9 +32,14 @@ function App() {
   // Empties randomWorks to trigger loading render, then refills the state
   function handleWorksReload() {
     setRandomWorks([]);
+    setWorksIter(0);
     getRandomWorks().then(function(data) {
         setRandomWorks(data);
-        setWorksIter(0);
+        if ( !(data[0].id in savedWorks) ) {
+          setDisableSave(false);
+        } else {
+          setDisableSave(true);
+        }
     });
   }
 
@@ -42,9 +48,17 @@ function App() {
   function handleWorksSave() {
     let slideIndex = slideRef.current.state.index;
     setWorksIter(slideIndex);
-
+    setDisableSave(true);
     if ( !(randomWorks[slideIndex].id in savedWorks) ) {
       setSavedWorks({...savedWorks, [randomWorks[slideIndex].id]: randomWorks[slideIndex]});
+    }
+  }
+
+  function handleSlideChange(oldIndex, newIndex) {
+    if (randomWorks[newIndex].id in savedWorks) {
+      setDisableSave(true);
+    } else {
+      setDisableSave(false);
     }
   }
 
@@ -53,10 +67,10 @@ function App() {
         <header className="App-header">
           {randomWorks.length > 0
             ? <div className="overall-wrapper">
-              <SlideShow slideRef={slideRef} randomWorks={randomWorks} savedWorks={savedWorks} setSavedWorks={setSavedWorks} worksIter={worksIter} setWorksIter={setWorksIter} />
+              <SlideShow slideRef={slideRef} randomWorks={randomWorks} savedWorks={savedWorks} worksIter={worksIter} onChange={handleSlideChange} />
               <div className="button-row">
                 <div>
-                  <Button style={{ color: 'white', borderColor: 'white' }} variant="outlined" className="save-button" onClick={handleWorksSave}><SaveIcon fontSize="large" /></Button>
+                  <Button disabled={disableSave} variant="outlined" className="save-button" onClick={handleWorksSave}><SaveIcon fontSize="large" /></Button>
                   <div className="saved-total">{Object.keys(savedWorks).length > 0 ? Object.keys(savedWorks).length: ""}</div>
                 </div>
                 <Button style={{ color: 'white', borderColor: 'white' }} variant="outlined" className="reload-works" onClick={handleWorksReload}><RefreshIcon fontSize="large" /></Button>
